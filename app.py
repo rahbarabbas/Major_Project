@@ -96,6 +96,9 @@ def video_feed():
 
 @app.route('/video')
 def video_output():
+    print(session.get('username','not available'))
+    if not session.get('is_logged_in', False):
+        return redirect('/login')
     return render_template('video.html')
 
 # froute
@@ -168,8 +171,7 @@ if __name__ == '__main__':
     t.daemon = True
     t.start()
     # start the flask app
-    app.run(host='127.0.0.1', port=5000, debug=True,threaded=True, use_reloader=False)
+    app.run(host='127.0.0.1', port=5000, debug=True, threaded=True, use_reloader=False)
 # release the video stream pointer
 vs.stop()
-
 # python app.py
